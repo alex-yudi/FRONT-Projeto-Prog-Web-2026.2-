@@ -1,32 +1,62 @@
-# React + TypeScript + Vite
+# bairro. — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Crowdsourcing local de bairro: vizinhos encontram negócios locais, veem promoções e postam avisos que outros vizinhos confirmam. Projeto de Programação Web 2026.2 (UFERSA).
 
-Currently, two official plugins are available:
+**Stack:** React 19, Vite 8, TypeScript, React Router 7, Tailwind CSS 4.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Rodando
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # checagem de tipos + build
+npm run lint
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Nesta fase **não há integração com o backend**: todos os dados vêm dos mocks em `src/mocks`, que simulam as respostas da API.
+
+## Estrutura
+
+```
+src/
+├─ main.tsx            # monta o RouterProvider
+├─ index.css           # Tailwind + tokens do Figma (@theme)
+├─ routes/             # paths.ts (URLs) e router.tsx (rotas)
+├─ layouts/            # AppLayout (com Topbar) e AuthLayout (login/cadastro)
+├─ pages/              # uma pasta por tela
+├─ components/
+│  ├─ modals/          # modais do Figma
+│  └─ layout/ ui/ negocio/ aviso/ oferta/   # componentes compartilhados (criados tela a tela)
+├─ lib/                # token JWT (localStorage) e ProblemDetail/ApiError
+├─ services/           # funções que as telas chamam (uma por endpoint)
+├─ types/              # DTOs da API
+├─ mocks/              # "servidor falso": server.ts, banco em memória, seed e handlers
+├─ hooks/ contexts/ utils/
+```
+
+## Como os mocks funcionam
+
+```
+Tela → services/negocios.service.ts → mockApi.get('/negocios', filtros) → mocks/server.ts → mocks/handlers/negocios.ts → mocks/db.ts
+```
+
+- Os **services** fazem "pseudo-requisições": método e caminho iguais aos da API (`mockApi.get('/negocios', { bairro })`). As telas só chamam os services.
+- O **servidor mock** (`mocks/server.ts`) casa o método e o caminho com os handlers e resolve com os dados. Se algo falhar (campo inválido, id inexistente, e-mail duplicado), rejeita com um `ApiError` que contém o `ProblemDetail`.
+- **Não há atraso simulado nem regras de permissão.** O token salvo no login serve só para o mock saber quem é o usuário logado (autor de um aviso, "meus avisos", "meus negócios").
+- O **banco** (`mocks/db.ts`) começa com o seed de `mocks/data/`, que usa os textos do Figma. As alterações ficam salvas no `localStorage`.
+  - Para voltar ao seed, rode no console do navegador: `bairroMock.resetDb()`.
+- Os campos e as rotas que **só existem no mock** estão marcados com `// mock-only` e `// TODO backend`. Essa é a lista do que o backend ainda precisa ganhar.
+
+### Usuários de demonstração
+
+| Perfil | E-mail | Senha |
+|---|---|---|
+| Vizinha | `maria.souza@email.com` | `maria12345` |
+| Dono da Quitanda do Zé | `jose@email.com` | `jose12345` |
+| ADMIN | `admin@bairro.com` | `admin12345` |
+
+São valores de teste e só existem em `src/mocks/data/usuarios.ts`.
+
+## Contribuindo
+
+Uma tela por vez, sempre usando os `services/` (nunca `mocks/` direto) e os tokens do Tailwind definidos em `src/index.css`. Cada página traz no topo o node id do frame correspondente no Figma.
