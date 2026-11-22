@@ -12,7 +12,6 @@ import MeusAvisosPage from '@/pages/MeusAvisos'
 import MinhaContaPage from '@/pages/MinhaConta'
 import NegocioPerfilPage from '@/pages/NegocioPerfil'
 import NotFoundPage from '@/pages/NotFound'
-import ReivindicarPerfilPage from '@/pages/ReivindicarPerfil'
 import { PATHS } from './paths'
 
 /**
@@ -34,7 +33,6 @@ export const router = createBrowserRouter([
       { path: PATHS.busca, element: <BuscaPage /> },
       { path: PATHS.novoNegocio, element: <CadastroNegocioPage /> },
       { path: PATHS.negocio(), element: <NegocioPerfilPage /> },
-      { path: PATHS.reivindicar(), element: <ReivindicarPerfilPage /> },
       { path: PATHS.editarNegocio(), element: <EditarNegocioPage /> },
       { path: PATHS.painel, element: <DashboardPage /> },
       { path: PATHS.minhaConta, element: <MinhaContaPage /> },

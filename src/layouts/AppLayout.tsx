@@ -1,11 +1,12 @@
 import { Outlet } from 'react-router'
+import Topbar from '@/components/layout/Topbar'
 
-// Layout das telas com Topbar (Figma: componente Topbar 4:7).
-// TODO: implementar a Topbar na etapa do Feed.
+// Layout das telas com Topbar.
+// TODO: implementar o layout.
 export default function AppLayout() {
   return (
     <>
-      <p>AppLayout</p>
+      <Topbar />
       <Outlet />
     </>
   )

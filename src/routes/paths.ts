@@ -5,7 +5,6 @@ export const PATHS = {
   cadastro: '/cadastro',
   busca: '/busca',
   negocio: (id: number | string = ':id') => `/negocios/${id}`,
-  reivindicar: (id: number | string = ':id') => `/negocios/${id}/reivindicar`,
   novoNegocio: '/negocios/novo',
   editarNegocio: (id: number | string = ':id') => `/negocios/${id}/editar`,
   painel: '/painel',

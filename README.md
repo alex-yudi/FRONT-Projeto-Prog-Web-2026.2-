@@ -23,10 +23,11 @@ src/
 ├─ index.css           # Tailwind + tokens do Figma (@theme)
 ├─ routes/             # paths.ts (URLs) e router.tsx (rotas)
 ├─ layouts/            # AppLayout (com Topbar) e AuthLayout (login/cadastro)
-├─ pages/              # uma pasta por tela
+├─ pages/              # uma pasta por tela do Figma (componentes usados só por ela ficam em pages/<Tela>/components)
 ├─ components/
-│  ├─ modals/          # modais do Figma
-│  └─ layout/ ui/ negocio/ aviso/ oferta/   # componentes compartilhados (criados tela a tela)
+│  ├─ layout/Topbar    # cabeçalho de todas as telas, menos login e cadastro
+│  ├─ modals/          # modais usados por mais de uma tela (AvisoFormModal)
+│  └─ ui/ negocio/ aviso/ oferta/   # componentes compartilhados (criados tela a tela)
 ├─ lib/                # token JWT (localStorage) e ProblemDetail/ApiError
 ├─ services/           # funções que as telas chamam (uma por endpoint)
 ├─ types/              # DTOs da API
