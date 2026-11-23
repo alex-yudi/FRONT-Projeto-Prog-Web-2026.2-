@@ -46,6 +46,11 @@ export default function PromocaoFormModal({ negocioId, oferta, onClose, onSaved 
   const [erro, setErro] = useState('')
   const [enviando, setEnviando] = useState(false)
 
+  const editar = (set: (valor: string) => void) => (e: { target: { value: string } }) => {
+    set(e.target.value)
+    setErro('')
+  }
+
   async function enviar(e: FormEvent) {
     e.preventDefault()
     // Aceita "3,20", "3.20" e "R$ 3,20". Vazio não pode virar 0 (promoção grátis sem querer).
@@ -77,11 +82,11 @@ export default function PromocaoFormModal({ negocioId, oferta, onClose, onSaved 
         {erro && <p className="mt-4 rounded-input bg-alerta-fundo p-3 text-sm text-perigo">{erro}</p>}
 
         <Campo rotulo="Produto ou serviço" className="mt-6">
-          <Input placeholder="Ex: Alface crespa" value={nome} onChange={(e) => setNome(e.target.value)} />
+          <Input placeholder="Ex: Alface crespa" value={nome} onChange={editar(setNome)} />
         </Campo>
 
         <Campo rotulo="Preço promocional" className="mt-4">
-          <Input placeholder="R$ 3,20" inputMode="decimal" value={preco} onChange={(e) => setPreco(e.target.value)} />
+          <Input placeholder="R$ 3,20" inputMode="decimal" value={preco} onChange={editar(setPreco)} />
         </Campo>
 
         <Campo rotulo="Válido por" className="mt-4">
@@ -105,7 +110,7 @@ export default function PromocaoFormModal({ negocioId, oferta, onClose, onSaved 
           <Textarea
             placeholder="Ex: leve 3 pague 2, válido enquanto durar o estoque"
             value={detalhes}
-            onChange={(e) => setDetalhes(e.target.value)}
+            onChange={editar(setDetalhes)}
           />
         </Campo>
 

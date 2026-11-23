@@ -60,7 +60,10 @@ export default function PostarAvisoModal({ negocioId, negocioNome, onClose, onSa
           className="mt-5 block h-[140px] w-full rounded-input border border-borda bg-superficie px-4 py-3.5 text-[15px] outline-primaria"
           placeholder="Ex: carne moída está sem promoção até amanhã..."
           value={texto}
-          onChange={(e) => setTexto(e.target.value)}
+          onChange={(e) => {
+            setTexto(e.target.value)
+            setErro('')
+          }}
         />
         {erro && <p className="mt-2 text-sm text-perigo">{erro}</p>}
 

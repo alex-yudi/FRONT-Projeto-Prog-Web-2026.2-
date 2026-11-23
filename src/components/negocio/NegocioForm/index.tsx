@@ -31,7 +31,12 @@ export default function NegocioForm({ inicial, textoBotao, onSubmit }: Props) {
     })
   }, [])
 
-  const alterar = (campo: keyof NegocioRequest, valor: string) => setForm({ ...form, [campo]: valor })
+  function alterar(campo: keyof NegocioRequest, valor: string) {
+    setForm({ ...form, [campo]: valor })
+    const { [campo]: _corrigido, ...restantes } = erros
+    setErros(restantes)
+    if (Object.keys(restantes).length === 0) setErroGeral('')
+  }
 
   async function enviar(e: FormEvent) {
     e.preventDefault()
