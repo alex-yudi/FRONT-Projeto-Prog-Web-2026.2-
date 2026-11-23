@@ -40,7 +40,11 @@ function formatarPreco({ preco, unidade }: OfertaResponse) {
 const confirmado = (a: AvisoResponse) => a.votosUtil >= 5 && a.votosUtil > a.votosNaoUtil
 
 export default function NegocioPerfilPage() {
-  const id = Number(useParams().id)
+  const { id } = useParams()
+  return <Perfil key={id} id={Number(id)} />
+}
+
+function Perfil({ id }: { id: number }) {
   const navigate = useNavigate()
   const logado = getSessao() !== null
   const [negocio, setNegocio] = useState<NegocioResponse | null>(null)
