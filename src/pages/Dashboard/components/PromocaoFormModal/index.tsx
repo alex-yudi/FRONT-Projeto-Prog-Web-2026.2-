@@ -1,5 +1,6 @@
 // Figma: 3:108 — Criar Promocao (Modal) · 62:32 — Editar Promoção
 import { useState, type FormEvent } from 'react'
+import { Campo, Input, Textarea } from '@/components/ui/Campo'
 import { getProblem } from '@/lib/problem'
 import { atualizarOferta, criarOferta } from '@/services/ofertas.service'
 import type { OfertaResponse } from '@/types'
@@ -28,9 +29,6 @@ function calcularValidade(opcao: Validade) {
   if (opcao === 'mes') return formatarData(new Date(hoje.getFullYear(), hoje.getMonth() + 1, 0))
   return formatarData(hoje)
 }
-
-const input = 'w-full h-11 px-3.5 rounded-input border-[1.5px] border-borda bg-superficie text-[15px] outline-primaria'
-const rotulo = 'block mb-1.5 text-[13px] leading-4 font-semibold'
 
 interface Props {
   negocioId: number
@@ -78,35 +76,38 @@ export default function PromocaoFormModal({ negocioId, oferta, onClose, onSaved 
 
         {erro && <p className="mt-4 rounded-input bg-alerta-fundo p-3 text-sm text-perigo">{erro}</p>}
 
-        <label className={`${rotulo} mt-6`}>Produto ou serviço</label>
-        <input className={input} placeholder="Ex: Alface crespa" value={nome} onChange={(e) => setNome(e.target.value)} />
+        <Campo rotulo="Produto ou serviço" className="mt-6">
+          <Input placeholder="Ex: Alface crespa" value={nome} onChange={(e) => setNome(e.target.value)} />
+        </Campo>
 
-        <label className={`${rotulo} mt-4`}>Preço promocional</label>
-        <input className={input} placeholder="R$ 3,20" inputMode="decimal" value={preco} onChange={(e) => setPreco(e.target.value)} />
+        <Campo rotulo="Preço promocional" className="mt-4">
+          <Input placeholder="R$ 3,20" inputMode="decimal" value={preco} onChange={(e) => setPreco(e.target.value)} />
+        </Campo>
 
-        <span className={`${rotulo} mt-4`}>Válido por</span>
-        <div className="flex gap-3">
-          {OPCOES.map((o) => (
-            <button
-              key={o.valor}
-              type="button"
-              onClick={() => setValidade(o.valor)}
-              className={`h-9 ${o.largura} cursor-pointer rounded-pilula px-4 text-left text-[13px] font-semibold transition ${
-                validade === o.valor ? 'bg-primaria text-white' : 'border-[1.5px] border-borda bg-superficie hover:border-primaria'
-              }`}
-            >
-              {o.rotulo}
-            </button>
-          ))}
-        </div>
+        <Campo rotulo="Válido por" className="mt-4">
+          <div className="flex gap-3">
+            {OPCOES.map((o) => (
+              <button
+                key={o.valor}
+                type="button"
+                onClick={() => setValidade(o.valor)}
+                className={`h-9 ${o.largura} cursor-pointer rounded-pilula px-4 text-left text-[13px] font-semibold transition ${
+                  validade === o.valor ? 'bg-primaria text-white' : 'border-[1.5px] border-borda bg-superficie hover:border-primaria'
+                }`}
+              >
+                {o.rotulo}
+              </button>
+            ))}
+          </div>
+        </Campo>
 
-        <label className={`${rotulo} mt-[26px]`}>Detalhes (opcional)</label>
-        <textarea
-          className="block h-[88px] w-full rounded-input border-[1.5px] border-borda bg-superficie px-3.5 py-3 text-sm outline-primaria"
-          placeholder="Ex: leve 3 pague 2, válido enquanto durar o estoque"
-          value={detalhes}
-          onChange={(e) => setDetalhes(e.target.value)}
-        />
+        <Campo rotulo="Detalhes (opcional)" className="mt-[26px]">
+          <Textarea
+            placeholder="Ex: leve 3 pague 2, válido enquanto durar o estoque"
+            value={detalhes}
+            onChange={(e) => setDetalhes(e.target.value)}
+          />
+        </Campo>
 
         <button
           type="submit"
