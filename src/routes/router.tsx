@@ -12,7 +12,7 @@ import MeusAvisosPage from '@/pages/MeusAvisos'
 import MinhaContaPage from '@/pages/MinhaConta'
 import NegocioPerfilPage from '@/pages/NegocioPerfil'
 import NotFoundPage from '@/pages/NotFound'
-import ReivindicarPerfilPage from '@/pages/ReivindicarPerfil'
+import ReivindicarPerfilPage from '@/pages/ReivindicarPerfil' // <-- ADICIONADO AQUI
 import { PATHS } from './paths'
 import RequireAuth from './RequireAuth'
 
@@ -42,6 +42,7 @@ export const router = createBrowserRouter([
           { path: PATHS.meusAvisos, element: <MeusAvisosPage /> },
         ],
       },
+      // As rotas duplicadas que estavam aqui embaixo foram removidas.
       { path: '*', element: <NotFoundPage /> },
     ],
   },
