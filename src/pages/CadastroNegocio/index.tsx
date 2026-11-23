@@ -7,7 +7,6 @@ import { getBairros } from '@/services/bairros.service'
 import { criarNegocio } from '@/services/negocios.service'
 import type { BairroResponse, CategoriaNegocio, NegocioRequest } from '@/types'
 
-// Larguras proporcionais às do Figma, reduzidas para os 5 chips caberem em 560 px.
 const CATEGORIAS: { valor: CategoriaNegocio; rotulo: string; largura: string }[] = [
   { valor: 'HORTIFRUTI', rotulo: 'Hortifruti', largura: 'w-[112px]' },
   { valor: 'MERCADO', rotulo: 'Mercado', largura: 'w-[100px]' },
@@ -79,9 +78,8 @@ export default function CadastroNegocioPage() {
             key={c.valor}
             type="button"
             onClick={() => alterar('categoria', c.valor)}
-            className={`h-9 ${c.largura} cursor-pointer rounded-pilula px-4 text-left text-[13px] font-semibold transition ${
-              form.categoria === c.valor ? 'bg-primaria text-white' : 'border-[1.5px] border-borda bg-superficie hover:border-primaria'
-            }`}
+            className={`h-9 ${c.largura} cursor-pointer rounded-pilula px-4 text-left text-[13px] font-semibold transition ${form.categoria === c.valor ? 'bg-primaria text-white' : 'border-[1.5px] border-borda bg-superficie hover:border-primaria'
+              }`}
           >
             {c.rotulo}
           </button>
