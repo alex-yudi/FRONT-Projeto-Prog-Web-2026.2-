@@ -14,11 +14,9 @@ import NegocioPerfilPage from '@/pages/NegocioPerfil'
 import NotFoundPage from '@/pages/NotFound'
 import ReivindicarPerfilPage from '@/pages/ReivindicarPerfil'
 import { PATHS } from './paths'
+import RequireAuth from './RequireAuth'
 
-/**
- * Rotas do app. A proteção das rotas que exigem login
- * (painel, minha conta, meus avisos, cadastro/edição de negócio) entra na etapa do Login.
- */
+/** Rotas do app. Painel, conta, avisos e cadastro/edição de negócio exigem login (RequireAuth). */
 export const router = createBrowserRouter([
   {
     element: <AuthLayout />,
@@ -32,13 +30,18 @@ export const router = createBrowserRouter([
     children: [
       { path: PATHS.feed, element: <FeedPage /> },
       { path: PATHS.busca, element: <BuscaPage /> },
-      { path: PATHS.novoNegocio, element: <CadastroNegocioPage /> },
       { path: PATHS.negocio(), element: <NegocioPerfilPage /> },
       { path: PATHS.reivindicar(), element: <ReivindicarPerfilPage /> },
-      { path: PATHS.editarNegocio(), element: <EditarNegocioPage /> },
-      { path: PATHS.painel, element: <DashboardPage /> },
-      { path: PATHS.minhaConta, element: <MinhaContaPage /> },
-      { path: PATHS.meusAvisos, element: <MeusAvisosPage /> },
+      {
+        element: <RequireAuth />,
+        children: [
+          { path: PATHS.novoNegocio, element: <CadastroNegocioPage /> },
+          { path: PATHS.editarNegocio(), element: <EditarNegocioPage /> },
+          { path: PATHS.painel, element: <DashboardPage /> },
+          { path: PATHS.minhaConta, element: <MinhaContaPage /> },
+          { path: PATHS.meusAvisos, element: <MeusAvisosPage /> },
+        ],
+      },
       { path: '*', element: <NotFoundPage /> },
     ],
   },

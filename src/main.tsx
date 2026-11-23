@@ -1,6 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router'
+import { AuthProvider } from './contexts/AuthContext'
+import { BairroProvider } from './contexts/BairroContext'
 import { router } from './routes/router'
 import './index.css'
 
@@ -9,6 +11,10 @@ import './mocks/db'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <BairroProvider>
+        <RouterProvider router={router} />
+      </BairroProvider>
+    </AuthProvider>
   </StrictMode>,
 )
