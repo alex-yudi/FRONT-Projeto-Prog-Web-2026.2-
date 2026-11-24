@@ -27,7 +27,7 @@ function useFecharFora(aberto: boolean, fechar: () => void) {
 
 function Menu({ children }: { children: ReactNode }) {
   return (
-    <ul className="absolute top-full z-40 mt-2 min-w-48 overflow-hidden rounded-card border border-borda bg-superficie py-1 shadow-card">
+    <ul className="mt-2 min-w-48 overflow-hidden rounded-card border border-borda bg-superficie py-1 shadow-card">
       {children}
     </ul>
   )
@@ -57,7 +57,7 @@ function SeletorBairro() {
         </span>
       </button>
       {aberto && (
-        <div className="absolute left-1/2 -translate-x-1/2">
+        <div className="absolute top-full left-1/2 z-40 -translate-x-1/2">
           <Menu>
             {bairros.map((b) => (
               <li key={b.nome} role="option" aria-selected={b.nome === nome}>
@@ -125,7 +125,7 @@ function MenuConta() {
         <IconePessoa />
       </button>
       {aberto && (
-        <div className="absolute right-0">
+        <div className="absolute top-full right-0 z-40">
           <Menu>
             <li className="border-b border-borda-suave px-4 py-2">
               <p className="font-rotulo text-sm font-bold text-texto">{usuario?.nome ?? 'Minha conta'}</p>
