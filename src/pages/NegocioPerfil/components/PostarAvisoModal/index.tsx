@@ -58,7 +58,7 @@ export default function PostarAvisoModal({ negocioId, negocioNome, onClose, onSa
 
         <textarea
           className="mt-5 block h-[140px] w-full rounded-input border border-borda bg-superficie px-4 py-3.5 text-[15px] outline-primaria"
-          placeholder="Ex: carne moída está sem promoção até amanhã..."
+          placeholder="Ex: carne moída está em promoção até amanhã..."
           value={texto}
           onChange={(e) => {
             setTexto(e.target.value)

@@ -97,7 +97,7 @@ export default function AvisoFormModal({ negocio, aviso, onClose, onSaved }: Pro
         <Textarea
           label="Aviso"
           className="min-h-[116px] font-corpo"
-          placeholder="Ex: carne moída está sem promoção até amanhã…"
+          placeholder="Ex: carne moída está em promoção até amanhã…"
           maxLength={500}
           value={texto}
           onChange={(e) => setTexto(e.target.value)}
